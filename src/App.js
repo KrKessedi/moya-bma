@@ -175,10 +175,18 @@ function App() {
 		<div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
 			<h1>Добавить анкету</h1>
 			<form onSubmit={handleSubmit}>
-				<input type='file' onChange={(e) => setImageFile(e.target.files[0])} />
+				<input
+					className='hidden-input'
+					type='file'
+					id='file'
+					onChange={(e) => setImageFile(e.target.files[0])}
+				/>
+				<label for='file' class='custom-upload'>
+					Загрузить файл
+				</label>
 				<div>
 					<label>Что купил:</label>
-					<select value={bought} onChange={handleBoughtChange}>
+					<select className='btn' value={bought} onChange={handleBoughtChange}>
 						<option value=''>Выбери</option>
 						{cigarettes.map((c) => (
 							<option key={c} value={c}>
@@ -189,7 +197,7 @@ function App() {
 				</div>
 				<div>
 					<label>Что выдал:</label>
-					<select value={given} onChange={handleGivenChange}>
+					<select className='btn' value={given} onChange={handleGivenChange}>
 						<option value=''>Выбери</option>
 						{cigarettes.map((c) => (
 							<option key={c} value={c}>
@@ -211,7 +219,11 @@ function App() {
 				<div>
 					<label>Дата проведения:</label>
 					<div style={{ display: 'flex', gap: '10px' }}>
-						<select value={day} onChange={(e) => setDay(e.target.value)}>
+						<select
+							className='btn'
+							value={day}
+							onChange={(e) => setDay(e.target.value)}
+						>
 							<option value=''>День</option>
 							{[...Array(31)].map((_, i) => (
 								<option key={i + 1} value={String(i + 1).padStart(2, '0')}>
@@ -220,7 +232,11 @@ function App() {
 							))}
 						</select>
 
-						<select value={month} onChange={(e) => setMonth(e.target.value)}>
+						<select
+							className='btn'
+							value={month}
+							onChange={(e) => setMonth(e.target.value)}
+						>
 							<option value=''>Месяц</option>
 							{[
 								'01',
@@ -243,7 +259,9 @@ function App() {
 						</select>
 					</div>
 				</div>
-				<button type='submit'>Сохранить</button>
+				<button className='btn' type='submit'>
+					Сохранить
+				</button>
 			</form>
 			<div
 				style={{
@@ -255,6 +273,7 @@ function App() {
 				<div>
 					<label>Фильтр по марке:</label>
 					<select
+						className='btn'
 						value={filterBrand}
 						onChange={(e) => setFilterBrand(e.target.value)}
 					>
@@ -266,7 +285,14 @@ function App() {
 						))}
 					</select>
 				</div>
-				<div style={{ display: 'flex', gap: '20px' }}>
+				<div
+					style={{
+						display: 'flex',
+						gap: '20px',
+						textAlign: 'center',
+						fontSize: '14px',
+					}}
+				>
 					<p>Активные {visibleCount}</p>
 					<p>Общее {totalCount}</p>
 				</div>
@@ -280,9 +306,10 @@ function App() {
 					<div
 						key={p.id}
 						style={{
-							border: '1px solid #ccc',
 							margin: '10px 0',
 							padding: '10px',
+							backgroundColor: '#D96C96',
+							borderRadius: '10px',
 						}}
 					>
 						<img
@@ -290,7 +317,7 @@ function App() {
 							alt='Анкета'
 							style={{
 								width: '100%',
-								maxHeight: '300px',
+								maxHeight: '100%',
 								objectFit: 'cover',
 								objectPosition: 'top',
 							}}
