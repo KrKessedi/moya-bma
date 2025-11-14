@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ref as dbRef, push, onValue, update } from 'firebase/database'
+import heart from './icons/heart-love-marriage-40-svgrepo-com.svg'
+import heart2 from './icons/heart-love-marriage-15-svgrepo-com.svg'
+import heart3 from './icons/heart-passion-svgrepo-com.svg'
 import {
 	ref as storageRef,
 	uploadBytes,
@@ -173,6 +176,9 @@ function App() {
 
 	return (
 		<div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
+			<img src={heart} alt='heart' className='heart' />
+			<img src={heart2} alt='heart2' className='heart2' />
+			<img src={heart3} alt='heart3' className='heart3' />
 			<h1>Добавить анкету</h1>
 			<form onSubmit={handleSubmit}>
 				<input
@@ -185,7 +191,7 @@ function App() {
 					Загрузить файл
 				</label>
 				<div>
-					<label>Что купил:</label>
+					<label className='vybor'>Что купил:</label>
 					<select className='btn' value={bought} onChange={handleBoughtChange}>
 						<option value=''>Выбери</option>
 						{cigarettes.map((c) => (
@@ -196,7 +202,7 @@ function App() {
 					</select>
 				</div>
 				<div>
-					<label>Что выдал:</label>
+					<label className='vybor'>Что выдал:</label>
 					<select className='btn' value={given} onChange={handleGivenChange}>
 						<option value=''>Выбери</option>
 						{cigarettes.map((c) => (
@@ -212,13 +218,14 @@ function App() {
 							type='checkbox'
 							checked={lighter}
 							onChange={(e) => setLighter(e.target.checked)}
+							style={{ marginBottom: '10px' }}
 						/>
 						Выдавалась зажигалка
 					</label>
 				</div>
 				<div>
 					<label>Дата проведения:</label>
-					<div style={{ display: 'flex', gap: '10px' }}>
+					<div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
 						<select
 							className='btn'
 							value={day}
@@ -259,9 +266,11 @@ function App() {
 						</select>
 					</div>
 				</div>
-				<button className='btn' type='submit'>
-					Сохранить
-				</button>
+				<div style={{ display: 'flex', justifyContent: 'center' }}>
+					<button style={{ textAlign: 'center' }} className='btn' type='submit'>
+						Сохранить
+					</button>
+				</div>
 			</form>
 			<div
 				style={{
@@ -273,6 +282,7 @@ function App() {
 				<div>
 					<label>Фильтр по марке:</label>
 					<select
+						style={{ marginTop: '10px' }}
 						className='btn'
 						value={filterBrand}
 						onChange={(e) => setFilterBrand(e.target.value)}
@@ -298,8 +308,6 @@ function App() {
 				</div>
 			</div>
 
-			<hr />
-
 			<h2>Доступные анкеты</h2>
 			{profilesBegimay.length > 0 ? (
 				profilesBegimay.map((p) => (
@@ -308,7 +316,7 @@ function App() {
 						style={{
 							margin: '10px 0',
 							padding: '10px',
-							backgroundColor: '#D96C96',
+							backgroundColor: '#f7a8c9',
 							borderRadius: '10px',
 						}}
 					>
@@ -320,6 +328,7 @@ function App() {
 								maxHeight: '100%',
 								objectFit: 'cover',
 								objectPosition: 'top',
+								borderRadius: '10px',
 							}}
 						/>
 						<p>
@@ -338,7 +347,13 @@ function App() {
 						<p>
 							<strong>Использовано:</strong> {p.usageCount}
 						</p>
-						<button onClick={() => handleUse(p)}>Использовать</button>
+						<button
+							className='btn'
+							style={{ border: '1px solid black', color: 'black' }}
+							onClick={() => handleUse(p)}
+						>
+							Использовать
+						</button>
 					</div>
 				))
 			) : (
